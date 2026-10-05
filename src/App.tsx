@@ -6,6 +6,7 @@ import { DepartmentHub } from './pages/DepartmentHub'
 import { MissionControl } from './pages/MissionControl'
 import { Plan } from './pages/Plan'
 import { QuestionsPage } from './pages/Questions'
+import { Scroll } from './pages/Scroll'
 import { Settings } from './pages/Settings'
 import { Simulator } from './pages/Simulator'
 import { Stories } from './pages/Stories'
@@ -15,6 +16,7 @@ export default function App() {
     <ProgressProvider>
       <HashRouter>
         <Routes>
+          <Route path="scroll" element={<Scroll />} />
           <Route element={<Layout />}>
             <Route index element={<MissionControl />} />
             <Route path="efr" element={<DepartmentHub />} />

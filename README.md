@@ -6,6 +6,7 @@ Personal GitHub Pages trainer for **Eastside Fire & Rescue** and **Bellingham Fi
 
 ## Features
 
+- **Scroll Prep** — Shorts-style swipe feed (say it aloud → rate → next). Weak spots rise first.
 - Mission Control with dual-department countdowns and readiness score
 - Department hubs (mission, values, stations, process, why-draft, flashcards)
 - STAR story bank (edit in-repo)

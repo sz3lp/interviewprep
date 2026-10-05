@@ -57,6 +57,12 @@ export function DepartmentHub() {
           <div className="row" style={{ marginTop: '0.75rem' }}>
             <Link
               className="btn"
+              to={`/scroll?focus=${id}&stage=${nextMilestone.id === 'speed' || nextMilestone.id === 'screening' || nextMilestone.id === 'oral' || nextMilestone.id === 'leadership' || nextMilestone.id === 'chiefs' ? nextMilestone.id : 'oral'}`}
+            >
+              Scroll prep
+            </Link>
+            <Link
+              className="btn ghost"
               to={`/simulator?dept=${id}&mode=${nextMilestone.id}`}
             >
               Run {nextMilestone.label}

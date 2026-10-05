@@ -588,3 +588,296 @@ textarea {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+/* —— Scroll Prep (Shorts-style feed) —— */
+
+.scroll-promo {
+  margin-top: 0.5rem;
+}
+
+.scroll-promo-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.35rem 1.4rem;
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(120deg, rgba(196, 92, 38, 0.22), transparent 55%),
+    linear-gradient(165deg, var(--bg-2), var(--bg-1));
+  animation: rise 0.55s ease-out both;
+}
+
+.scroll-promo-inner h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.scroll-promo-inner p {
+  max-width: 36rem;
+  margin: 0;
+}
+
+.scroll-shell {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  overflow: hidden;
+  background:
+    radial-gradient(900px 500px at 50% 0%, rgba(196, 92, 38, 0.22), transparent 60%),
+    radial-gradient(700px 400px at 80% 100%, rgba(212, 165, 116, 0.1), transparent 55%),
+    linear-gradient(180deg, #1c1511 0%, #120e0c 55%, #0c0907 100%);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.scroll-shell.scroll-flash::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 40%, rgba(224, 120, 56, 0.2), transparent 55%);
+  animation: scrollFlash 0.35s ease-out both;
+}
+
+.scroll-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 0.35rem;
+}
+
+.scroll-exit {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink-muted);
+  font-size: 0.9rem;
+}
+
+.scroll-exit:hover {
+  color: var(--ink);
+}
+
+.scroll-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.scroll-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.scroll-dept {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ember-bright);
+}
+
+.scroll-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  min-width: 4.5rem;
+}
+
+.scroll-streak {
+  color: var(--copper);
+  font-weight: 700;
+}
+
+.scroll-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.35rem 1rem 0.5rem;
+}
+
+.scroll-filters button {
+  appearance: none;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  color: var(--ink-muted);
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+}
+
+.scroll-filters button.on,
+.scroll-filters button:hover {
+  border-color: var(--ember);
+  color: var(--ink);
+  background: var(--ember-soft);
+}
+
+.scroll-stage {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.5rem 1rem 0.75rem;
+}
+
+.scroll-card {
+  position: relative;
+  width: min(520px, 100%);
+  height: min(640px, 100%);
+  max-height: 100%;
+  padding: 1.5rem 1.35rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  background: linear-gradient(165deg, rgba(50, 38, 31, 0.95), rgba(26, 21, 18, 0.98));
+  border: 1px solid var(--line-strong);
+  border-left: 3px solid var(--ember);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+.scroll-card-glow {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 45%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(196, 92, 38, 0.28), transparent 70%);
+  pointer-events: none;
+  animation: pulseSoft 3.2s ease-in-out infinite;
+}
+
+.scroll-prompt {
+  position: relative;
+  font-size: clamp(1.65rem, 5.5vw, 2.35rem);
+  line-height: 1.12;
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+.scroll-hint {
+  position: relative;
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: 0.98rem;
+}
+
+.scroll-reveal {
+  position: relative;
+  align-self: flex-start;
+  margin-top: 0.25rem;
+  animation: rise 0.35s ease-out both;
+}
+
+.scroll-reveal-panel {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0.85rem 0.95rem;
+  background: rgba(12, 9, 7, 0.55);
+  border: 1px solid var(--line);
+  animation: rise 0.3s ease-out both;
+}
+
+.scroll-answer {
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--copper);
+  font-size: 1.02rem;
+  line-height: 1.5;
+}
+
+.scroll-actions {
+  position: relative;
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.scroll-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 1rem calc(0.85rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: rgba(18, 14, 12, 0.72);
+  backdrop-filter: blur(10px);
+}
+
+.scroll-nudge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.1rem;
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+
+.scroll-chevron {
+  color: var(--ember-bright);
+  font-size: 1.1rem;
+  line-height: 1;
+  animation: scrollBounce 1.4s ease-in-out infinite;
+}
+
+@keyframes scrollBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes scrollFlash {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .scroll-card {
+    height: 100%;
+    padding: 1.15rem 1rem 1rem;
+  }
+
+  .scroll-prompt {
+    font-size: clamp(1.45rem, 7vw, 1.9rem);
+  }
+
+  .scroll-stats {
+    min-width: 0;
+  }
+}
