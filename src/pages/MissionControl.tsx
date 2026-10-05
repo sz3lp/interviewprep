@@ -27,8 +27,36 @@ export function MissionControl() {
             Fire — screening and speed interviews first, then scored boards and
             chiefs.
           </p>
+          <div className="row" style={{ marginTop: '1rem' }}>
+            <Link className="btn" to="/scroll?focus=efr&stage=screening">
+              Scroll EF&R prep
+            </Link>
+            <Link className="btn ghost" to="/scroll?focus=bfd&stage=speed">
+              Scroll BFD
+            </Link>
+          </div>
+          <p className="muted" style={{ marginTop: '0.65rem', marginBottom: 0 }}>
+            Swipe like Shorts — say it aloud, rate it, next card. Weak spots float up first.
+          </p>
         </div>
         <ReadinessRing value={overall} label="Overall readiness" />
+      </section>
+
+      <section className="section scroll-promo">
+        <div className="scroll-promo-inner">
+          <div>
+            <div className="eyebrow">Addictive micro-drills</div>
+            <h2>Prep that feels like scrolling</h2>
+            <p>
+              One card. One prompt. Speak it. Swipe. Built for EF&R’s 7-minute screen —
+              bio, Why EF&R, values, and facts in an endless feed weighted to what you
+              still miss.
+            </p>
+          </div>
+          <Link className="btn" to="/scroll?focus=efr&stage=screening">
+            Start scrolling
+          </Link>
+        </div>
       </section>
 
       <div className="track-row">
@@ -140,6 +168,9 @@ export function MissionControl() {
           <h2>Quick launches</h2>
         </div>
         <div className="row">
+          <Link className="btn" to="/scroll?focus=efr&stage=screening">
+            Scroll EF&R
+          </Link>
           <Link className="btn" to="/simulator?dept=efr&mode=screening">
             EF&R 7-min screen
           </Link>
