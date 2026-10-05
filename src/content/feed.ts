@@ -92,14 +92,16 @@ const coachingTips: FeedCard[] = [
   },
 ]
 
-function speakFromQuestions(focus: FeedFocus): FeedCard[] {
+function speakFromQuestions(focus: FeedFocus, stage?: StageId): FeedCard[] {
   return questions
     .filter((q) => {
-      if (focus === 'both') return true
-      return (
+      const deptOk =
+        focus === 'both' ||
         q.departments.includes('shared') ||
         q.departments.includes(focus)
-      )
+      if (!deptOk) return false
+      if (!stage) return true
+      return q.stages.includes(stage)
     })
     .map((q) => {
       const dept =
@@ -259,7 +261,7 @@ function whyCards(focus: FeedFocus): FeedCard[] {
   return cards
 }
 
-export function buildFeedPool(focus: FeedFocus): FeedCard[] {
+export function buildFeedPool(focus: FeedFocus, stage?: StageId): FeedCard[] {
   const tips =
     focus === 'both'
       ? coachingTips
@@ -268,12 +270,12 @@ export function buildFeedPool(focus: FeedFocus): FeedCard[] {
         )
 
   return [
-    ...speakFromQuestions(focus),
+    ...speakFromQuestions(focus, stage),
     ...factCards(focus),
     ...valueCards(focus),
     ...storyCards(focus),
     ...whyCards(focus),
-    ...tips,
+    ...tips.filter((t) => !stage || !t.stageBias || t.stageBias.includes(stage)),
   ]
 }
 
@@ -321,7 +323,7 @@ export function buildFeedQueue(
   state: ProgressState,
   opts: { stage?: StageId; length?: number; rng?: () => number } = {},
 ): FeedCard[] {
-  const pool = buildFeedPool(focus)
+  const pool = buildFeedPool(focus, opts.stage)
   const length = opts.length ?? 40
   const rng = opts.rng ?? Math.random
   const recent = new Set<string>()

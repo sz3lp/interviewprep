@@ -813,9 +813,16 @@ textarea {
 
 .scroll-actions {
   position: relative;
+  z-index: 2;
   margin-top: auto;
   padding-top: 0.5rem;
   border-top: 1px solid var(--line);
+}
+
+.scroll-reveal,
+.scroll-reveal-panel {
+  position: relative;
+  z-index: 2;
 }
 
 .scroll-bottom {
