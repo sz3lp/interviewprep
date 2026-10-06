@@ -38,6 +38,21 @@ function stageFromParams(raw: string | null): StageId | undefined {
   return undefined
 }
 
+/** True when the event started/targets inside the long reveal text box. */
+function isInsideRevealPanel(target: EventTarget | null): boolean {
+  return target instanceof Element && !!target.closest('.scroll-reveal-panel')
+}
+
+/** Panel still has room to scroll in the wheel direction. */
+function revealPanelCanScroll(panel: Element, deltaY: number): boolean {
+  const el = panel as HTMLElement
+  const max = el.scrollHeight - el.clientHeight
+  if (max <= 1) return false
+  if (deltaY > 0) return el.scrollTop < max - 1
+  if (deltaY < 0) return el.scrollTop > 1
+  return false
+}
+
 export function Scroll() {
   const [params, setParams] = useSearchParams()
   const focus = focusFromParams(params.get('focus'))
@@ -55,7 +70,9 @@ export function Scroll() {
   const [dragY, setDragY] = useState(0)
   const [animating, setAnimating] = useState<'up' | 'down' | null>(null)
 
-  const touchStart = useRef<{ y: number; t: number } | null>(null)
+  const touchStart = useRef<{ y: number; t: number; inReveal: boolean } | null>(
+    null,
+  )
   const lock = useRef(false)
 
   const card = queue[index]
@@ -163,33 +180,59 @@ export function Scroll() {
   }, [go, revealed])
 
   useEffect(() => {
-    const stage = document.querySelector('.scroll-stage')
-    if (!stage) return
+    const stageEl = document.querySelector('.scroll-stage')
+    if (!stageEl) return
     const onWheel = (e: Event) => {
       const we = e as WheelEvent
       if (Math.abs(we.deltaY) < 18) return
+
+      const panel =
+        we.target instanceof Element
+          ? we.target.closest('.scroll-reveal-panel')
+          : null
+
+      // Nested scroll: keep wheel inside the reveal box while it can scroll,
+      // and never steal the gesture mid-read.
+      if (panel) {
+        if (revealPanelCanScroll(panel, we.deltaY)) {
+          return
+        }
+        // At the edge of the panel — still don't auto-advance; use Next/Prev.
+        we.preventDefault()
+        return
+      }
+
       we.preventDefault()
       go(we.deltaY > 0 ? 1 : -1)
     }
-    stage.addEventListener('wheel', onWheel, { passive: false })
-    return () => stage.removeEventListener('wheel', onWheel)
+    stageEl.addEventListener('wheel', onWheel, { passive: false })
+    return () => stageEl.removeEventListener('wheel', onWheel)
   }, [go])
 
   function onTouchStart(e: TouchEvent) {
     const t = e.touches[0]
-    touchStart.current = { y: t.clientY, t: Date.now() }
+    touchStart.current = {
+      y: t.clientY,
+      t: Date.now(),
+      inReveal: isInsideRevealPanel(e.target),
+    }
   }
 
   function onTouchMove(e: TouchEvent) {
-    if (!touchStart.current) return
+    if (!touchStart.current || touchStart.current.inReveal) return
     const y = e.touches[0].clientY
     setDragY(y - touchStart.current.y)
   }
 
   function onTouchEnd() {
     if (!touchStart.current) return
+    const { inReveal } = touchStart.current
     const dy = dragY
     touchStart.current = null
+    if (inReveal) {
+      setDragY(0)
+      return
+    }
     if (dy < -SWIPE_THRESHOLD) go(1)
     else if (dy > SWIPE_THRESHOLD) go(-1)
     else setDragY(0)
@@ -277,7 +320,13 @@ export function Scroll() {
               {card.actionLabel}
             </button>
           ) : (
-            <div className="scroll-reveal-panel">
+            <div
+              className="scroll-reveal-panel"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchStart={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+              onTouchEnd={(e) => e.stopPropagation()}
+            >
               <p className="scroll-answer">{revealText}</p>
             </div>
           )}
