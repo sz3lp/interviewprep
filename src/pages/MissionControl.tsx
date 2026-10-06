@@ -28,7 +28,10 @@ export function MissionControl() {
             chiefs.
           </p>
           <div className="row" style={{ marginTop: '1rem' }}>
-            <Link className="btn" to="/scroll?focus=efr&stage=screening">
+            <Link className="btn" to="/distill">
+              Build answers from your stories
+            </Link>
+            <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">
               Scroll EF&R prep
             </Link>
             <Link className="btn ghost" to="/scroll?focus=bfd&stage=speed">
@@ -36,7 +39,8 @@ export function MissionControl() {
             </Link>
           </div>
           <p className="muted" style={{ marginTop: '0.65rem', marginBottom: 0 }}>
-            Swipe like Shorts — say it aloud, rate it, next card. Weak spots float up first.
+            Answer ~18 life prompts → distill into your 3 screening answers → swipe
+            practice. Weak spots float up first.
           </p>
         </div>
         <ReadinessRing value={overall} label="Overall readiness" />
@@ -48,9 +52,9 @@ export function MissionControl() {
             <div className="eyebrow">Addictive micro-drills</div>
             <h2>Prep that feels like scrolling</h2>
             <p>
-              One card. One prompt. Speak it. Swipe. Built for EF&R’s 7-minute screen —
-              bio, Why EF&R, values, and facts in an endless feed weighted to what you
-              still miss.
+              One card. One prompt. Speak it. Swipe. EF&R screening feed rotates your
+              three questions — why firefighter, what you’ve done to prepare, traits you
+              bring — plus values and facts until they’re automatic.
             </p>
           </div>
           <Link className="btn" to="/scroll?focus=efr&stage=screening">

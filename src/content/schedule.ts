@@ -24,12 +24,12 @@ export const battlePlan: BattlePlanDay[] = [
   },
   {
     date: '2026-10-06',
-    focus: 'Story bank — fill gaps before interview day',
+    focus: 'Your three EF&R screening questions — on repeat',
     tasks: [
-      'Complete teamwork, integrity, and customer-service STAR stories',
-      'Map each story to an EF&R value',
-      'Practice 60–90s delivery for top 4 stories',
-      'One more screening sim under time pressure',
+      'Distill: answer life-story prompts → build the 3 drafts',
+      'Scroll Prep: why firefighter · prepare · traits',
+      'Run one 7-min sim with the exact three-question set',
+      'Map traits answer to URDS (Unity, Respect, Determination, Safety)',
     ],
   },
   {

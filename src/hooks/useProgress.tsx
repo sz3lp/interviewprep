@@ -16,6 +16,7 @@ import {
   type ProgressState,
   type SimulatorRep,
 } from '../lib/progress'
+import type { DistillBucket } from '../content/distill'
 
 interface ProgressContextValue {
   state: ProgressState
@@ -32,6 +33,10 @@ interface ProgressContextValue {
   togglePlanCheck: (key: string) => void
   addSimulatorRep: (rep: Omit<SimulatorRep, 'id' | 'at'>) => void
   setFlashcardIndex: (deptId: string, index: number) => void
+  setDistillAnswer: (promptId: string, text: string) => void
+  setDistillDraft: (bucket: DistillBucket, text: string) => void
+  setDistillDrafts: (drafts: ProgressState['distillDrafts']) => void
+  applyDistillToQuestions: (drafts: ProgressState['distillDrafts']) => void
   exportJson: () => string
   importJson: (json: string) => void
   reset: () => void
@@ -99,6 +104,44 @@ export function ProgressProvider({ children }: { children: ReactNode }) {
         ...prev,
         flashcardIndex: { ...prev.flashcardIndex, [deptId]: index },
       }))
+    },
+    setDistillAnswer(promptId, text) {
+      setState((prev) => ({
+        ...prev,
+        distillAnswers: { ...prev.distillAnswers, [promptId]: text },
+      }))
+    },
+    setDistillDraft(bucket, text) {
+      setState((prev) => ({
+        ...prev,
+        distillDrafts: { ...prev.distillDrafts, [bucket]: text },
+      }))
+    },
+    setDistillDrafts(drafts) {
+      setState((prev) => ({
+        ...prev,
+        distillDrafts: { ...prev.distillDrafts, ...drafts },
+      }))
+    },
+    applyDistillToQuestions(drafts) {
+      const map: Record<string, string | undefined> = {
+        'q-why-ff': drafts.why,
+        'q-prep': drafts.prep,
+        'q-efr-traits': drafts.traits,
+      }
+      setState((prev) => {
+        const questions = { ...prev.questions }
+        for (const [id, draft] of Object.entries(map)) {
+          if (!draft?.trim()) continue
+          const current = questions[id] ?? { confidence: 0 as const }
+          questions[id] = {
+            ...current,
+            answerDraft: draft,
+            lastPracticed: new Date().toISOString(),
+          }
+        }
+        return { ...prev, questions, distillDrafts: { ...prev.distillDrafts, ...drafts } }
+      })
     },
     exportJson() {
       return exportProgress(state)

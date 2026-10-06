@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { getDepartment, type DepartmentId } from '../content'
+import { getDepartment, getEfrScreeningQuestions, type DepartmentId } from '../content'
 import { ConfidencePicker } from '../components/ConfidencePicker'
 import { ReadinessRing } from '../components/ReadinessRing'
 import { useProgress } from '../hooks/useProgress'
@@ -73,6 +73,38 @@ export function DepartmentHub() {
           </div>
         </div>
       </section>
+
+      {id === 'efr' && (
+        <section className="section">
+          <div className="section-head">
+            <h2>Screening questions</h2>
+            <Link to="/scroll?focus=efr&stage=screening">Scroll drill →</Link>
+          </div>
+          <div className="panel">
+            <p className="muted" style={{ marginTop: 0 }}>
+              Your reported 7-minute screen set — drill these until they feel natural.
+            </p>
+            <ol>
+              {getEfrScreeningQuestions().map((q) => (
+                <li key={q.id} style={{ color: 'var(--ink)', marginBottom: '0.35rem' }}>
+                  {q.text}
+                </li>
+              ))}
+            </ol>
+            <div className="row" style={{ marginTop: '0.75rem' }}>
+              <Link className="btn" to="/distill">
+                Distill my stories
+              </Link>
+              <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">
+                Scroll the three
+              </Link>
+              <Link className="btn ghost" to="/simulator?dept=efr&mode=screening">
+                7-min sim
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="section">
         <div className="section-head">

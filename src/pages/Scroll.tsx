@@ -69,6 +69,15 @@ export function Scroll() {
     return (state[card.progressKind][card.progressId]?.confidence ?? 0) as Confidence
   }, [card, state])
 
+  const revealText = useMemo(() => {
+    if (!card) return ''
+    if (card.kind === 'speak' && card.progressId) {
+      const draft = state.questions[card.progressId]?.answerDraft?.trim()
+      if (draft) return `Your draft:\n${draft}\n\nCoaching tip:\n${card.reveal}`
+    }
+    return card.reveal
+  }, [card, state.questions])
+
   const refillIfNeeded = useCallback(
     (nextIndex: number, current: FeedCard[]) => {
       if (nextIndex < current.length - 8) return current
@@ -154,13 +163,16 @@ export function Scroll() {
   }, [go, revealed])
 
   useEffect(() => {
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 18) return
-      e.preventDefault()
-      go(e.deltaY > 0 ? 1 : -1)
+    const stage = document.querySelector('.scroll-stage')
+    if (!stage) return
+    const onWheel = (e: Event) => {
+      const we = e as WheelEvent
+      if (Math.abs(we.deltaY) < 18) return
+      we.preventDefault()
+      go(we.deltaY > 0 ? 1 : -1)
     }
-    window.addEventListener('wheel', onWheel, { passive: false })
-    return () => window.removeEventListener('wheel', onWheel)
+    stage.addEventListener('wheel', onWheel, { passive: false })
+    return () => stage.removeEventListener('wheel', onWheel)
   }, [go])
 
   function onTouchStart(e: TouchEvent) {
@@ -266,12 +278,16 @@ export function Scroll() {
             </button>
           ) : (
             <div className="scroll-reveal-panel">
-              <p className="scroll-answer">{card.reveal}</p>
+              <p className="scroll-answer">{revealText}</p>
             </div>
           )}
 
           <div className="scroll-actions">
-            {card.progressKind && card.progressId ? (
+            {!revealed ? (
+              <p className="scroll-hint" style={{ margin: 0 }}>
+                Speak first. Reveal when ready. Rate to keep the streak.
+              </p>
+            ) : card.progressKind && card.progressId ? (
               <div>
                 <div className="eyebrow">How solid?</div>
                 <ConfidencePicker
