@@ -55,8 +55,11 @@ export function DepartmentHub() {
             </span>
           </div>
           <div className="row" style={{ marginTop: '0.75rem' }}>
+            <Link className="btn" to="/memorize">
+              Memorize first
+            </Link>
             <Link
-              className="btn"
+              className="btn ghost"
               to={`/scroll?focus=${id}&stage=${nextMilestone.id === 'speed' || nextMilestone.id === 'screening' || nextMilestone.id === 'oral' || nextMilestone.id === 'leadership' || nextMilestone.id === 'chiefs' ? nextMilestone.id : 'oral'}`}
             >
               Scroll prep
@@ -78,11 +81,12 @@ export function DepartmentHub() {
         <section className="section">
           <div className="section-head">
             <h2>Screening questions</h2>
-            <Link to="/scroll?focus=efr&stage=screening">Scroll drill →</Link>
+            <Link to="/memorize">Memorize →</Link>
           </div>
           <div className="panel">
             <p className="muted" style={{ marginTop: 0 }}>
-              Your reported 7-minute screen set — drill these until they feel natural.
+              Your reported 7-minute screen set — memorize beat-by-beat first, then scroll
+              for speed.
             </p>
             <ol>
               {getEfrScreeningQuestions().map((q) => (
@@ -92,7 +96,10 @@ export function DepartmentHub() {
               ))}
             </ol>
             <div className="row" style={{ marginTop: '0.75rem' }}>
-              <Link className="btn" to="/distill">
+              <Link className="btn" to="/memorize">
+                Memorize answers
+              </Link>
+              <Link className="btn ghost" to="/distill">
                 Distill my stories
               </Link>
               <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">

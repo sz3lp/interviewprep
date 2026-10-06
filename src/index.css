@@ -619,6 +619,77 @@ textarea {
   border: 0;
 }
 
+/* —— Memorize (active recall) —— */
+
+.memorize-method {
+  margin-bottom: 1rem;
+}
+
+.memorize-steps {
+  margin: 0.35rem 0 0;
+  padding-left: 1.25rem;
+  color: var(--ink-muted);
+  line-height: 1.55;
+}
+
+.memorize-steps li + li {
+  margin-top: 0.25rem;
+}
+
+.memorize-card {
+  animation: rise 0.4s ease-out both;
+}
+
+.memorize-text {
+  white-space: pre-wrap;
+  line-height: 1.65;
+  color: var(--ink);
+  margin: 0.5rem 0 0;
+  font-size: 1.05rem;
+}
+
+.memorize-cover {
+  margin-top: 0.75rem;
+  padding: 1.25rem 1.1rem;
+  border: 1px dashed var(--line-strong);
+  background:
+    linear-gradient(160deg, rgba(196, 92, 38, 0.12), transparent 60%),
+    var(--bg-0);
+  min-height: 8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.memorize-cover-prompt {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--copper);
+}
+
+.memorize-cover-cue {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  color: var(--ink);
+  font-family: var(--font-body);
+}
+
+.memorize-cue-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+.memorize-cue-list li + li {
+  margin-top: 0.35rem;
+}
+
 /* —— Scroll Prep (Shorts-style feed) —— */
 
 .scroll-promo {

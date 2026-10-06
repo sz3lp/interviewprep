@@ -28,19 +28,18 @@ export function MissionControl() {
             chiefs.
           </p>
           <div className="row" style={{ marginTop: '1rem' }}>
-            <Link className="btn" to="/distill">
-              Build answers from your stories
+            <Link className="btn" to="/memorize">
+              Memorize answers & facts
             </Link>
             <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">
-              Scroll EF&R prep
+              Scroll when you know it
             </Link>
-            <Link className="btn ghost" to="/scroll?focus=bfd&stage=speed">
-              Scroll BFD
+            <Link className="btn ghost" to="/distill">
+              Distill
             </Link>
           </div>
           <p className="muted" style={{ marginTop: '0.65rem', marginBottom: 0 }}>
-            Answer ~18 life prompts → distill into your 3 screening answers → swipe
-            practice. Weak spots float up first.
+            Learn first (study → cover → say aloud) · then Scroll for speed reps.
           </p>
         </div>
         <ReadinessRing value={overall} label="Overall readiness" />
@@ -49,17 +48,22 @@ export function MissionControl() {
       <section className="section scroll-promo">
         <div className="scroll-promo-inner">
           <div>
-            <div className="eyebrow">Addictive micro-drills</div>
-            <h2>Prep that feels like scrolling</h2>
+            <div className="eyebrow">Learn first · then scroll</div>
+            <h2>Memorize before you swipe</h2>
             <p>
-              One card. One prompt. Speak it. Swipe. EF&R screening feed rotates your
-              three questions — why firefighter, what you’ve done to prepare, traits you
-              bring — plus values and facts until they’re automatic.
+              Don’t scroll blank. Study each answer beat, cover it, say it aloud, then
+              check. Ladder up to the full ~2-minute draft, drill EF&R facts the same
+              way — then use Scroll when the words are already yours.
             </p>
           </div>
-          <Link className="btn" to="/scroll?focus=efr&stage=screening">
-            Start scrolling
-          </Link>
+          <div className="row">
+            <Link className="btn" to="/memorize">
+              Open Memorize
+            </Link>
+            <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">
+              Scroll feed
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -172,6 +176,9 @@ export function MissionControl() {
           <h2>Quick launches</h2>
         </div>
         <div className="row">
+          <Link className="btn" to="/memorize">
+            Memorize
+          </Link>
           <Link className="btn" to="/scroll?focus=efr&stage=screening">
             Scroll EF&R
           </Link>
