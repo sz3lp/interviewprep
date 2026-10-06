@@ -66,15 +66,14 @@ function seedQuestionDrafts(
     'q-prep': screeningDrafts.prep,
     'q-efr-traits': screeningDrafts.traits,
   }
+  // stories.ts screeningDrafts are source of truth for the 3 EF&R screen answers
   for (const [id, draft] of Object.entries(map)) {
     const current = next[id]
-    if (!current?.answerDraft?.trim()) {
-      next[id] = {
-        confidence: current?.confidence ?? 0,
-        lastPracticed: current?.lastPracticed,
-        notes: current?.notes,
-        answerDraft: draft,
-      }
+    next[id] = {
+      confidence: current?.confidence ?? 0,
+      lastPracticed: current?.lastPracticed,
+      notes: current?.notes,
+      answerDraft: draft,
     }
   }
   return next
@@ -115,15 +114,9 @@ export function loadProgress(): ProgressState {
       flashcardIndex: parsed.flashcardIndex ?? {},
       distillAnswers: mergeDistillAnswers(parsed.distillAnswers),
       distillDrafts: {
-        why: parsed.distillDrafts?.why?.trim()
-          ? parsed.distillDrafts.why
-          : screeningDrafts.why,
-        prep: parsed.distillDrafts?.prep?.trim()
-          ? parsed.distillDrafts.prep
-          : screeningDrafts.prep,
-        traits: parsed.distillDrafts?.traits?.trim()
-          ? parsed.distillDrafts.traits
-          : screeningDrafts.traits,
+        why: screeningDrafts.why,
+        prep: screeningDrafts.prep,
+        traits: screeningDrafts.traits,
       },
     }
   } catch {
