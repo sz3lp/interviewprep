@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  distillAllDrafts,
   distillBucketLabels,
   distillProgress,
   distillPrompts,
   type DistillBucket,
 } from '../content/distill'
+import { screeningDrafts } from '../content/stories'
 import { useProgress } from '../hooks/useProgress'
 
 type Phase = 'intake' | 'results'
@@ -38,10 +38,14 @@ export function Distill() {
   }
 
   function runDistill() {
-    const drafts = distillAllDrafts(answers)
+    const drafts = {
+      why: screeningDrafts.why,
+      prep: screeningDrafts.prep,
+      traits: screeningDrafts.traits,
+    }
     applyDistillToQuestions(drafts)
     setPhase('results')
-    setSavedNote('Drafts saved into your screening question bank.')
+    setSavedNote('Polished drafts from your life-story bank saved to the question bank.')
   }
 
   function saveEditedDraftsToBank() {
@@ -81,7 +85,7 @@ export function Distill() {
         <div className="stack">
           {buckets.map((bucket) => {
             const draft =
-              state.distillDrafts[bucket] ?? distillAllDrafts(answers)[bucket]
+              state.distillDrafts[bucket] ?? screeningDrafts[bucket]
             return (
               <article key={bucket} className="question-block">
                 <div className="eyebrow">{distillBucketLabels[bucket]}</div>
@@ -111,12 +115,16 @@ export function Distill() {
             type="button"
             className="btn ghost"
             onClick={() => {
-              const drafts = distillAllDrafts(answers)
+              const drafts = {
+                why: screeningDrafts.why,
+                prep: screeningDrafts.prep,
+                traits: screeningDrafts.traits,
+              }
               applyDistillToQuestions(drafts)
-              setSavedNote('Rebuilt drafts from your intake answers.')
+              setSavedNote('Restored polished drafts from stories.ts life-story bank.')
             }}
           >
-            Rebuild from intake
+            Rebuild from story bank
           </button>
           <button
             type="button"
