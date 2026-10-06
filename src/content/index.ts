@@ -1,7 +1,7 @@
 import { efr } from './departments/efr'
 import { bfd } from './departments/bfd'
 import { questions } from './questions'
-import { stories, competencyLabels } from './stories'
+import { stories, competencyLabels, lifeStoryAnswers, screeningDrafts } from './stories'
 import { battlePlan, getPlanForDate, getTodayIso } from './schedule'
 import { rubricDimensions, confidenceLabels } from './rubric'
 import type { Department, DepartmentId, ProcessStage, Question, StageId } from './types'
@@ -12,6 +12,8 @@ export const departmentList: Department[] = [efr, bfd]
 export {
   questions,
   stories,
+  lifeStoryAnswers,
+  screeningDrafts,
   competencyLabels,
   battlePlan,
   getPlanForDate,

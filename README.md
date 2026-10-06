@@ -32,7 +32,7 @@ npm run preview
 
 | File | What to change |
 |------|----------------|
-| `src/content/stories.ts` | STAR stories + “tell me about yourself” |
+| `src/content/stories.ts` | STAR stories + life-story Distill answers + 3 screening drafts |
 | `src/content/departments/efr.ts` | EF&R intel + Why EF&R draft |
 | `src/content/departments/bfd.ts` | Bellingham intel + Why BFD draft |
 | `src/content/questions.ts` | Practice questions |

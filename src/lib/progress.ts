@@ -5,6 +5,7 @@ import {
   type DepartmentId,
   type StageId,
 } from '../content'
+import { lifeStoryAnswers, screeningDrafts } from '../content/stories'
 
 const STORAGE_KEY = 'board-ready-progress-v1'
 
@@ -46,17 +47,54 @@ export interface ProgressState {
   }
 }
 
+function mergeDistillAnswers(
+  saved: Record<string, string> | undefined,
+): Record<string, string> {
+  const out: Record<string, string> = { ...lifeStoryAnswers }
+  for (const [id, text] of Object.entries(saved ?? {})) {
+    if (text.trim()) out[id] = text
+  }
+  return out
+}
+
+function seedQuestionDrafts(
+  saved: Record<string, ItemProgress>,
+): Record<string, ItemProgress> {
+  const next = { ...saved }
+  const map: Record<string, string> = {
+    'q-why-ff': screeningDrafts.why,
+    'q-prep': screeningDrafts.prep,
+    'q-efr-traits': screeningDrafts.traits,
+  }
+  for (const [id, draft] of Object.entries(map)) {
+    const current = next[id]
+    if (!current?.answerDraft?.trim()) {
+      next[id] = {
+        confidence: current?.confidence ?? 0,
+        lastPracticed: current?.lastPracticed,
+        notes: current?.notes,
+        answerDraft: draft,
+      }
+    }
+  }
+  return next
+}
+
 function empty(): ProgressState {
   return {
     version: 1,
     facts: {},
-    questions: {},
+    questions: seedQuestionDrafts({}),
     stories: {},
     planChecks: {},
     simulatorReps: [],
     flashcardIndex: {},
-    distillAnswers: {},
-    distillDrafts: {},
+    distillAnswers: { ...lifeStoryAnswers },
+    distillDrafts: {
+      why: screeningDrafts.why,
+      prep: screeningDrafts.prep,
+      traits: screeningDrafts.traits,
+    },
   }
 }
 
@@ -70,13 +108,23 @@ export function loadProgress(): ProgressState {
       ...empty(),
       ...parsed,
       facts: parsed.facts ?? {},
-      questions: parsed.questions ?? {},
+      questions: seedQuestionDrafts(parsed.questions ?? {}),
       stories: parsed.stories ?? {},
       planChecks: parsed.planChecks ?? {},
       simulatorReps: parsed.simulatorReps ?? [],
       flashcardIndex: parsed.flashcardIndex ?? {},
-      distillAnswers: parsed.distillAnswers ?? {},
-      distillDrafts: parsed.distillDrafts ?? {},
+      distillAnswers: mergeDistillAnswers(parsed.distillAnswers),
+      distillDrafts: {
+        why: parsed.distillDrafts?.why?.trim()
+          ? parsed.distillDrafts.why
+          : screeningDrafts.why,
+        prep: parsed.distillDrafts?.prep?.trim()
+          ? parsed.distillDrafts.prep
+          : screeningDrafts.prep,
+        traits: parsed.distillDrafts?.traits?.trim()
+          ? parsed.distillDrafts.traits
+          : screeningDrafts.traits,
+      },
     }
   } catch {
     return empty()
