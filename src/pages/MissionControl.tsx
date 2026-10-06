@@ -48,9 +48,9 @@ export function MissionControl() {
             <div className="eyebrow">Addictive micro-drills</div>
             <h2>Prep that feels like scrolling</h2>
             <p>
-              One card. One prompt. Speak it. Swipe. Built for EF&R’s 7-minute screen —
-              bio, Why EF&R, values, and facts in an endless feed weighted to what you
-              still miss.
+              One card. One prompt. Speak it. Swipe. EF&R screening feed rotates your
+              three questions — why firefighter, what you’ve done to prepare, traits you
+              bring — plus values and facts until they’re automatic.
             </p>
           </div>
           <Link className="btn" to="/scroll?focus=efr&stage=screening">

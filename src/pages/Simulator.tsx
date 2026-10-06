@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import {
   getDepartment,
+  getEfrScreeningQuestions,
   pickQuestions,
   questionsFor,
   rubricDimensions,
@@ -30,7 +31,8 @@ const modes: Record<DepartmentId, Partial<Record<Mode, ModeConfig>>> = {
       count: 3,
       stage: 'screening',
       showQuestionsFirst: false,
-      notes: 'Get-to-know-you pace. Crisp bio, why fire, why EF&R.',
+      notes:
+        'Your 3 questions: why firefighter, what you’ve done to prepare, traits you bring. ~2 min each.',
     },
     oral: {
       label: 'EF&R Oral Board (30 min)',
@@ -145,8 +147,13 @@ export function Simulator() {
   }, [scores])
 
   function start() {
-    const pool = questionsFor({ department: dept, stage: config.stage })
-    const picked = pickQuestions(pool, config.count)
+    const picked =
+      dept === 'efr' && config.stage === 'screening'
+        ? getEfrScreeningQuestions()
+        : pickQuestions(
+            questionsFor({ department: dept, stage: config.stage }),
+            config.count,
+          )
     setSelected(picked)
     setQIndex(0)
     setSecondsLeft(config.minutes * 60)

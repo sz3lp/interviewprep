@@ -47,6 +47,8 @@ export function questionsFor(opts: {
   })
 }
 
+export { getEfrScreeningQuestions, EFR_SCREENING_QUESTION_IDS } from './efrScreening'
+
 export function pickQuestions(
   pool: Question[],
   count: number,

@@ -23,7 +23,7 @@ export const questions: Question[] = [
     id: 'q-why-efr',
     text: 'Why Eastside Fire & Rescue?',
     departments: ['efr'],
-    stages: ['screening', 'oral', 'leadership'],
+    stages: ['oral', 'leadership'],
     competencies: ['motivation', 'deptKnowledge'],
     tip: 'Partner model, multi-community service, values (URDS), WUI/tech/MIH — specific, not generic Eastside.',
   },
@@ -117,11 +117,23 @@ export const questions: Question[] = [
   },
   {
     id: 'q-prep',
-    text: 'What have you done to prepare for this career?',
+    text: 'What have you done to prepare?',
     departments: ['shared'],
     stages: ['screening', 'speed', 'oral'],
     competencies: ['motivation', 'selfKnowledge'],
-    tip: 'Inventory: fitness, ride-alongs/research, certifications, volunteering, studying the agency.',
+    tip: 'Inventory: fitness, ride-alongs/research, certifications, volunteering, studying EF&R specifically.',
+    sampleOutline:
+      'Physical training → certifications/education → agency research (values, partner model) → life experience that proves service.',
+  },
+  {
+    id: 'q-efr-traits',
+    text: 'What traits do you bring?',
+    departments: ['efr'],
+    stages: ['screening'],
+    competencies: ['selfKnowledge', 'teamwork', 'fit'],
+    tip: 'Pick 2–3 traits tied to URDS (Unity, Respect, Determination, Safety). One sentence each + one quick proof — not a laundry list.',
+    sampleOutline:
+      'Trait → how it shows on a crew tomorrow → tie to an EF&R value or look-for.',
   },
   {
     id: 'q-station-life',

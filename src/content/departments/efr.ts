@@ -80,7 +80,7 @@ export const efr: Department = {
       questionCount: 3,
       format: '7 minutes · 2–3 person panel · 3 questions · get-to-know-you',
       notes:
-        'Per public Path-to-EFR / NTN Fall 2026 materials. Verify your exact invite time via email.',
+        'Your reported screening set: (1) Why do you want to be a firefighter? (2) What have you done to prepare? (3) What traits do you bring? Verify invite time via email.',
     },
     {
       id: 'oral',
@@ -149,6 +149,13 @@ export const efr: Department = {
       id: 'efr-screen',
       prompt: 'Describe the screening interview format.',
       answer: 'About 7 minutes, 2–3 person panel, 3 get-to-know-you questions.',
+      tags: ['process'],
+    },
+    {
+      id: 'efr-screen-questions',
+      prompt: 'What are the three EF&R screening questions?',
+      answer:
+        'Why do you want to be a firefighter? · What have you done to prepare? · What traits do you bring?',
       tags: ['process'],
     },
     {

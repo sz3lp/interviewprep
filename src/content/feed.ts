@@ -1,5 +1,6 @@
 import { efr } from './departments/efr'
 import { bfd } from './departments/bfd'
+import { getEfrScreeningQuestions } from './efrScreening'
 import { questions } from './questions'
 import { stories } from './stories'
 import type { DepartmentId, StageId } from './types'
@@ -26,6 +27,18 @@ export interface FeedCard {
 export type FeedFocus = 'efr' | 'bfd' | 'both'
 
 const coachingTips: FeedCard[] = [
+  {
+    contentKey: 'tip-efr-three',
+    kind: 'tip',
+    eyebrow: 'Your screening set',
+    prompt: 'Memorize the three EF&R screening questions.',
+    reveal:
+      '1) Why do you want to be a firefighter?\n2) What have you done to prepare?\n3) What traits do you bring?\n\nDrill each ~90 seconds aloud.',
+    actionLabel: 'Next',
+    department: 'efr',
+    stageBias: ['screening'],
+    weightBoost: 2,
+  },
   {
     contentKey: 'tip-short-answers',
     kind: 'tip',
@@ -92,7 +105,30 @@ const coachingTips: FeedCard[] = [
   },
 ]
 
+function questionToSpeakCard(q: (typeof questions)[number], weightBoost = 0): FeedCard {
+  const dept =
+    q.departments.find((d): d is DepartmentId => d !== 'shared') ?? 'shared'
+  return {
+    contentKey: `speak-${q.id}`,
+    kind: 'speak',
+    eyebrow: 'Say it aloud',
+    prompt: q.text,
+    hint: 'Answer out loud like the panel is here. Then peek the tip.',
+    reveal: q.sampleOutline ? `${q.tip}\n\nOutline: ${q.sampleOutline}` : q.tip,
+    actionLabel: 'Reveal tip',
+    progressKind: 'questions',
+    progressId: q.id,
+    department: dept,
+    stageBias: q.stages,
+    weightBoost,
+  }
+}
+
 function speakFromQuestions(focus: FeedFocus, stage?: StageId): FeedCard[] {
+  if (focus === 'efr' && stage === 'screening') {
+    return getEfrScreeningQuestions().map((q) => questionToSpeakCard(q, 6))
+  }
+
   return questions
     .filter((q) => {
       const deptOk =
@@ -103,24 +139,7 @@ function speakFromQuestions(focus: FeedFocus, stage?: StageId): FeedCard[] {
       if (!stage) return true
       return q.stages.includes(stage)
     })
-    .map((q) => {
-      const dept =
-        q.departments.find((d): d is DepartmentId => d !== 'shared') ?? 'shared'
-      return {
-        contentKey: `speak-${q.id}`,
-        kind: 'speak' as const,
-        eyebrow: 'Say it aloud',
-        prompt: q.text,
-        hint: 'Answer out loud like the panel is here. Then peek the tip.',
-        reveal: q.sampleOutline ? `${q.tip}\n\nOutline: ${q.sampleOutline}` : q.tip,
-        actionLabel: 'Reveal tip',
-        progressKind: 'questions' as const,
-        progressId: q.id,
-        department: dept,
-        stageBias: q.stages,
-        weightBoost: q.stages.includes('screening') && focus === 'efr' ? 2 : 0,
-      }
-    })
+    .map((q) => questionToSpeakCard(q, q.stages.includes('screening') && focus === 'efr' ? 2 : 0))
 }
 
 function factCards(focus: FeedFocus): FeedCard[] {
@@ -239,7 +258,7 @@ function whyCards(focus: FeedFocus): FeedCard[] {
       progressKind: 'questions',
       progressId: 'q-why-efr',
       department: 'efr',
-      stageBias: ['screening', 'oral', 'leadership'],
+      stageBias: ['oral', 'leadership'],
       weightBoost: 4,
     })
   }
@@ -269,12 +288,14 @@ export function buildFeedPool(focus: FeedFocus, stage?: StageId): FeedCard[] {
           (t) => t.department === 'shared' || t.department === focus,
         )
 
+  const includeWhy = !(focus === 'efr' && stage === 'screening')
+
   return [
     ...speakFromQuestions(focus, stage),
     ...factCards(focus),
     ...valueCards(focus),
-    ...storyCards(focus),
-    ...whyCards(focus),
+    ...(focus === 'efr' && stage === 'screening' ? [] : storyCards(focus)),
+    ...(includeWhy ? whyCards(focus) : []),
     ...tips.filter((t) => !stage || !t.stageBias || t.stageBias.includes(stage)),
   ]
 }
