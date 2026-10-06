@@ -69,6 +69,15 @@ export function Scroll() {
     return (state[card.progressKind][card.progressId]?.confidence ?? 0) as Confidence
   }, [card, state])
 
+  const revealText = useMemo(() => {
+    if (!card) return ''
+    if (card.kind === 'speak' && card.progressId) {
+      const draft = state.questions[card.progressId]?.answerDraft?.trim()
+      if (draft) return `Your draft:\n${draft}\n\nCoaching tip:\n${card.reveal}`
+    }
+    return card.reveal
+  }, [card, state.questions])
+
   const refillIfNeeded = useCallback(
     (nextIndex: number, current: FeedCard[]) => {
       if (nextIndex < current.length - 8) return current
@@ -269,7 +278,7 @@ export function Scroll() {
             </button>
           ) : (
             <div className="scroll-reveal-panel">
-              <p className="scroll-answer">{card.reveal}</p>
+              <p className="scroll-answer">{revealText}</p>
             </div>
           )}
 

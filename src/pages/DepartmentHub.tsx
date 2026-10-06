@@ -92,7 +92,10 @@ export function DepartmentHub() {
               ))}
             </ol>
             <div className="row" style={{ marginTop: '0.75rem' }}>
-              <Link className="btn" to="/scroll?focus=efr&stage=screening">
+              <Link className="btn" to="/distill">
+                Distill my stories
+              </Link>
+              <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">
                 Scroll the three
               </Link>
               <Link className="btn ghost" to="/simulator?dept=efr&mode=screening">

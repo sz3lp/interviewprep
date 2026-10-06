@@ -546,6 +546,36 @@ textarea {
   color: var(--ink-dim);
 }
 
+.distill-progress {
+  margin: 0 0 1rem;
+  border: 1px solid var(--line);
+  background: rgba(18, 14, 12, 0.45);
+  overflow: hidden;
+}
+
+.distill-progress-bar {
+  height: 4px;
+  background: linear-gradient(90deg, var(--ember), var(--ember-bright));
+  transition: width 0.25s ease;
+}
+
+.distill-progress-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: var(--ink-dim);
+}
+
+.distill-card textarea {
+  min-height: 160px;
+}
+
 @keyframes rise {
   from {
     opacity: 0;

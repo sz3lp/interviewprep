@@ -36,6 +36,14 @@ export interface ProgressState {
   planChecks: Record<string, boolean>
   simulatorReps: SimulatorRep[]
   flashcardIndex: Record<string, number>
+  /** Life-story intake answers keyed by distill prompt id. */
+  distillAnswers: Record<string, string>
+  /** Generated/edited drafts for the 3 screening buckets. */
+  distillDrafts: {
+    why?: string
+    prep?: string
+    traits?: string
+  }
 }
 
 function empty(): ProgressState {
@@ -47,6 +55,8 @@ function empty(): ProgressState {
     planChecks: {},
     simulatorReps: [],
     flashcardIndex: {},
+    distillAnswers: {},
+    distillDrafts: {},
   }
 }
 
@@ -65,6 +75,8 @@ export function loadProgress(): ProgressState {
       planChecks: parsed.planChecks ?? {},
       simulatorReps: parsed.simulatorReps ?? [],
       flashcardIndex: parsed.flashcardIndex ?? {},
+      distillAnswers: parsed.distillAnswers ?? {},
+      distillDrafts: parsed.distillDrafts ?? {},
     }
   } catch {
     return empty()

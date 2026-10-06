@@ -28,7 +28,10 @@ export function MissionControl() {
             chiefs.
           </p>
           <div className="row" style={{ marginTop: '1rem' }}>
-            <Link className="btn" to="/scroll?focus=efr&stage=screening">
+            <Link className="btn" to="/distill">
+              Build answers from your stories
+            </Link>
+            <Link className="btn ghost" to="/scroll?focus=efr&stage=screening">
               Scroll EF&R prep
             </Link>
             <Link className="btn ghost" to="/scroll?focus=bfd&stage=speed">
@@ -36,7 +39,8 @@ export function MissionControl() {
             </Link>
           </div>
           <p className="muted" style={{ marginTop: '0.65rem', marginBottom: 0 }}>
-            Swipe like Shorts — say it aloud, rate it, next card. Weak spots float up first.
+            Answer ~18 life prompts → distill into your 3 screening answers → swipe
+            practice. Weak spots float up first.
           </p>
         </div>
         <ReadinessRing value={overall} label="Overall readiness" />
