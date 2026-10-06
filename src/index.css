@@ -824,9 +824,13 @@ textarea {
 
 .scroll-reveal-panel {
   position: relative;
+  z-index: 2;
   flex: 1;
   min-height: 0;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   padding: 0.85rem 0.95rem;
   background: rgba(12, 9, 7, 0.55);
   border: 1px solid var(--line);
