@@ -4,6 +4,7 @@ import { ProgressProvider } from './hooks/useProgress'
 import { Chiefs } from './pages/Chiefs'
 import { DepartmentHub } from './pages/DepartmentHub'
 import { Distill } from './pages/Distill'
+import { Memorize } from './pages/Memorize'
 import { MissionControl } from './pages/MissionControl'
 import { Plan } from './pages/Plan'
 import { QuestionsPage } from './pages/Questions'
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="efr" element={<DepartmentHub />} />
             <Route path="bfd" element={<DepartmentHub />} />
             <Route path="dept/:deptId" element={<DepartmentHub />} />
+            <Route path="memorize" element={<Memorize />} />
             <Route path="distill" element={<Distill />} />
             <Route path="stories" element={<Stories />} />
             <Route path="questions" element={<QuestionsPage />} />

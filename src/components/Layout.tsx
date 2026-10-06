@@ -2,6 +2,7 @@ import { NavLink, Outlet } from 'react-router-dom'
 
 const links = [
   { to: '/', label: 'Mission', end: true },
+  { to: '/memorize', label: 'Memorize' },
   { to: '/distill', label: 'Distill' },
   { to: '/scroll?focus=efr&stage=screening', label: 'Scroll' },
   { to: '/efr', label: 'EF&R' },

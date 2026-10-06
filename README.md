@@ -6,7 +6,8 @@ Personal GitHub Pages trainer for **Eastside Fire & Rescue** and **Bellingham Fi
 
 ## Features
 
-- **Scroll Prep** — Shorts-style swipe feed (say it aloud → rate → next). Weak spots rise first.
+- **Memorize** — Active recall for screening answers + EF&R facts (study → cover → say aloud → check). Beat → ladder → full answer. Weak items resurface first.
+- **Scroll Prep** — Shorts-style swipe feed once you know the material (say it aloud → rate → next). Weak spots rise first.
 - **Distill** — Answer ~18 life-story prompts; weave them into your 3 EF&R screening drafts
 - Mission Control with dual-department countdowns and readiness score
 - Department hubs (mission, values, stations, process, why-draft, flashcards)
@@ -33,6 +34,7 @@ npm run preview
 | File | What to change |
 |------|----------------|
 | `src/content/stories.ts` | STAR stories + life-story Distill answers + 3 screening drafts |
+| `src/content/memorize.ts` | Answer beat cues + extra high-yield EF&R fact cards |
 | `src/content/departments/efr.ts` | EF&R intel + Why EF&R draft |
 | `src/content/departments/bfd.ts` | Bellingham intel + Why BFD draft |
 | `src/content/questions.ts` | Practice questions |
